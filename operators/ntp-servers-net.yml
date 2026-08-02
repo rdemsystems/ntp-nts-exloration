@@ -1,0 +1,56 @@
+# ntp-servers.net
+# généré depuis les mesures RDEM Systems — modifiable librement par l'opérateur.
+#
+# Ce fichier décrit ce que l'opérateur DÉCLARE servir. Il a été pré-rempli à partir
+# de nos mesures publiques pour amorcer la liste ; il n'a aucune valeur d'attestation.
+# Pour le reprendre : ouvrez une pull request. Supprimez la ligne « généré depuis les mesures RDEM Systems »
+# ci-dessus et le fichier ne sera plus jamais régénéré automatiquement.
+#
+# Les mesures, elles, vivent dans measurements/ et ne sont pas modifiables par PR.
+
+
+operator: "ntp-servers.net"
+# contact: noc@exemple.tld    # facultatif, jamais rempli par nous
+servers:
+  - hostname: "ntp0.ntp-servers.net"
+    kind: server
+    country: "United Kingdom"
+    location: "London"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp1.ntp-servers.net"
+    kind: server
+    country: "Netherlands"
+    location: "Haarlem"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp2.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp3.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp4.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp5.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp6.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp7.ntp-servers.net"
+    kind: server
+    country: "Unknown"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"

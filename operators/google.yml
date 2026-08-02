@@ -1,0 +1,38 @@
+# Google
+# généré depuis les mesures RDEM Systems — modifiable librement par l'opérateur.
+#
+# Ce fichier décrit ce que l'opérateur DÉCLARE servir. Il a été pré-rempli à partir
+# de nos mesures publiques pour amorcer la liste ; il n'a aucune valeur d'attestation.
+# Pour le reprendre : ouvrez une pull request. Supprimez la ligne « généré depuis les mesures RDEM Systems »
+# ci-dessus et le fichier ne sera plus jamais régénéré automatiquement.
+#
+# Les mesures, elles, vivent dans measurements/ et ne sont pas modifiables par PR.
+
+
+operator: "Google"
+country: "International"
+# contact: noc@exemple.tld    # facultatif, jamais rempli par nous
+servers:
+  - hostname: "time.google.com"
+    kind: anycast
+    location: "Europe"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "time1.google.com"
+    kind: alias
+    location: "Europe"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+    alias_of: "time.google.com"
+  - hostname: "time2.google.com"
+    location: "Europe"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "time3.google.com"
+    location: "Europe"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "time4.google.com"
+    location: "Europe"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"

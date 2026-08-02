@@ -1,0 +1,35 @@
+# METAS
+# généré depuis les mesures RDEM Systems — modifiable librement par l'opérateur.
+#
+# Ce fichier décrit ce que l'opérateur DÉCLARE servir. Il a été pré-rempli à partir
+# de nos mesures publiques pour amorcer la liste ; il n'a aucune valeur d'attestation.
+# Pour le reprendre : ouvrez une pull request. Supprimez la ligne « généré depuis les mesures RDEM Systems »
+# ci-dessus et le fichier ne sera plus jamais régénéré automatiquement.
+#
+# Les mesures, elles, vivent dans measurements/ et ne sont pas modifiables par PR.
+
+
+operator: "METAS"
+country: "Switzerland"
+# contact: noc@exemple.tld    # facultatif, jamais rempli par nous
+servers:
+  - hostname: "ntp.metas.ch"
+    kind: alias
+    location: "Switzerland"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp11.metas.ch"
+    kind: server
+    location: "Bern-Wabern"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp12.metas.ch"
+    kind: server
+    location: "Bern-Wabern"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp13.metas.ch"
+    kind: server
+    location: "Bern-Wabern"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"

@@ -1,0 +1,29 @@
+# SWITCH (NREN)
+# généré depuis les mesures RDEM Systems — modifiable librement par l'opérateur.
+#
+# Ce fichier décrit ce que l'opérateur DÉCLARE servir. Il a été pré-rempli à partir
+# de nos mesures publiques pour amorcer la liste ; il n'a aucune valeur d'attestation.
+# Pour le reprendre : ouvrez une pull request. Supprimez la ligne « généré depuis les mesures RDEM Systems »
+# ci-dessus et le fichier ne sera plus jamais régénéré automatiquement.
+#
+# Les mesures, elles, vivent dans measurements/ et ne sont pas modifiables par PR.
+
+
+operator: "SWITCH (NREN)"
+country: "Switzerland"
+# contact: noc@exemple.tld    # facultatif, jamais rempli par nous
+servers:
+  - hostname: "ntp.switch.ch"
+    kind: academic
+    nts: null          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "swice-nts1.switch.ch"
+    kind: academic
+    location: "Zurich"
+    nts: null          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "swice-nts2.switch.ch"
+    kind: academic
+    location: "Zurich"
+    nts: null          # NTS ANNONCÉ, pas mesuré
+    access: "public"

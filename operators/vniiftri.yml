@@ -1,0 +1,40 @@
+# VNIIFTRI
+# généré depuis les mesures RDEM Systems — modifiable librement par l'opérateur.
+#
+# Ce fichier décrit ce que l'opérateur DÉCLARE servir. Il a été pré-rempli à partir
+# de nos mesures publiques pour amorcer la liste ; il n'a aucune valeur d'attestation.
+# Pour le reprendre : ouvrez une pull request. Supprimez la ligne « généré depuis les mesures RDEM Systems »
+# ci-dessus et le fichier ne sera plus jamais régénéré automatiquement.
+#
+# Les mesures, elles, vivent dans measurements/ et ne sont pas modifiables par PR.
+
+
+operator: "VNIIFTRI"
+country: "Russia"
+# contact: noc@exemple.tld    # facultatif, jamais rempli par nous
+servers:
+  - hostname: "ntp.sstf.nsk.ru"
+    kind: metrology
+    location: "Novosibirsk"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp1.niiftri.irkutsk.ru"
+    kind: metrology
+    location: "Irkutsk"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "ntp2.niiftri.irkutsk.ru"
+    kind: metrology
+    location: "Irkutsk"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "vniiftri.khv.ru"
+    kind: metrology
+    location: "Khabarovsk"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
+  - hostname: "vniiftri2.khv.ru"
+    kind: metrology
+    location: "Khabarovsk"
+    nts: false          # NTS ANNONCÉ, pas mesuré
+    access: "public"
