@@ -1,0 +1,29 @@
+# EXEMPLE — copiez ce fichier sous le nom de votre organisation, par exemple
+# servers/mon-organisation.yml, remplissez-le, ouvrez une pull request.
+#
+# Un fichier par contributeur. Vous êtes maître du vôtre : nous n'y touchons pas.
+# Rien ici n'est obligatoire sauf `hostname` — tout le reste améliore la mesure,
+# et un champ vide vaut mieux qu'un champ inventé.
+
+operator: "Nom de votre organisation"     # affiché tel quel dans nos publications
+country: "France"                          # pays où la machine est exploitée
+contact: "noc@exemple.tld"                 # facultatif, jamais publié
+
+servers:
+  - hostname: ntp1.exemple.tld             # SEUL champ obligatoire
+    kind: server                           # server | academic | metrology | operator |
+                                           # community | anycast | pool | alias
+    country: "France"                      # si différent du pays du fichier
+    location: "Paris"                      # ville, ou portée pour un anycast
+    nts: true                              # ce que vous ANNONCEZ servir. true/false/null
+    ipv4: true                             # familles IP que vous annoncez servir
+    ipv6: true
+    access: public                         # public | public-notify | on-request |
+                                           # restricted | closed
+    asn: [64500]                           # facultatif — un numéro, ou une liste
+    alias_of: null                         # si ce nom pointe une machine déjà listée
+
+  - hostname: ntp2.exemple.tld
+    kind: server
+    nts: false
+    access: public

@@ -1,24 +1,39 @@
-# ntp-registry — serveurs NTP/NTS déclarés, et ce que nous avons mesuré
+# ntp-nts-exploration
+
+**Ajoutez ici votre serveur NTP ou NTS : il sera mesuré à notre prochaine campagne.**
 
 *[English version](README.md)*
 
-On confond couramment deux affirmations sur un serveur de temps :
+Nous mesurons les serveurs NTP et NTS publics d'Europe — et, de plus en plus, du monde
+— depuis six points d'observation indépendants dans six systèmes autonomes différents,
+et nous publions les résultats en données ouvertes. Ce dépôt est la façon d'y faire
+entrer vos serveurs.
 
-- **ce que l'opérateur dit servir** — une déclaration ;
-- **ce qu'un client en obtient réellement** — une mesure.
+Un fichier par contributeur, dans [`servers/`](servers/). Copiez
+[`servers/EXAMPLE.yml`](servers/EXAMPLE.yml), remplissez-le, ouvrez une pull request.
+Votre fichier vous appartient : nous n'y touchons pas.
 
-Ce dépôt les sépare, délibérément, dans deux répertoires qui ne s'écrasent jamais.
+## Ce que contribuer veut dire
 
-| | `operators/` | `measurements/` |
-|---|---|---|
-| contenu | un fichier YAML par opérateur, listant les serveurs qu'il publie | campagnes de mesure datées, telles que publiées |
-| propriétaire | l'opérateur | RDEM Systems |
-| modifié par | pull request | jamais — une campagne se rescelle, elle ne se retouche pas |
+Ajouter un serveur ici est une **déclaration publique de son opérateur**. C'est
+exactement ce dont nous avons besoin, et c'est tout ce que nous demandons : rien à
+prouver, rien à installer, aucun lien retour. Mesurer est notre travail.
 
-Quand les deux divergent, **la divergence est le résultat**. Un serveur annoncé en NTS
-qui ne sert aucune heure authentifiée est un constat, pas une erreur à lisser.
+Concrètement, votre pull request nous dit trois choses à la fois :
 
-## Ce que « le NTS fonctionne » veut dire ici
+1. **le serveur existe** et vous voulez qu'il soit mesuré ;
+2. **vous autorisez la mesure** — nous enregistrons ce fichier comme la source de cette
+   autorisation, et nous publions le lien à côté de chaque chiffre qui concerne votre
+   serveur ;
+3. **ce que vous annoncez servir** — NTS ou non, quelles familles IP, quelle politique
+   d'accès.
+
+Nous mesurons ensuite, et nous publions ce que nous observons réellement. **Si notre
+mesure contredit votre déclaration, nous publions les deux.** L'écart est la partie
+intéressante — c'est souvent ainsi qu'un opérateur découvre que son NTS-KE est tombé
+depuis un mois.
+
+## Ce que nous mesurons, et ce que « le NTS fonctionne » veut dire ici
 
 Le NTS n'est pas un port, et ce n'est pas un certificat. C'est : *authentifie-toi, puis
 va sur ce serveur avec ce jeton*. Donc :
@@ -28,60 +43,41 @@ va sur ce serveur avec ce jeton*. Donc :
   poignée NTS-KE complète (TCP/4460, ALPN `ntske/1`, certificat valide **pour le nom
   interrogé**), *puis* une réponse NTP authentifiée valide.
 
-Les deux colonnes sont auto-portantes. Un serveur peut servir du NTS sans répondre au
-NTP en clair — c'est exactement ce que fait Netnod, par conception. Un serveur peut
-avoir un NTS-KE impeccable et ne servir aucune heure, parce qu'UDP/123 est filtré :
-l'échange de clés a réussi, l'heure n'est jamais arrivée. Celui-là est cassé.
+Les deux tiennent séparément. Un serveur peut servir du NTS sans répondre au NTP en
+clair — Netnod le fait par conception. Un serveur peut avoir un NTS-KE impeccable et ne
+servir aucune heure parce qu'UDP/123 est filtré : l'échange de clés a réussi, l'heure
+n'est jamais arrivée.
 
-## Méthode de mesure
+Nous relevons aussi le stratum, les familles IP, le certificat et son ancre de
+confiance, l'offset vu depuis chaque point d'observation, et les désaccords entre eux.
 
-Chaque serveur est interrogé depuis **six points d'observation indépendants, dans six
-systèmes autonomes différents**. Un point unique ne sait pas distinguer une ACL, un
-rate-limit ou une restriction géographique d'une vraie panne. Les fractions publiées
-(`4/6`, `0/6`) permettent de recompter avec un seuil différent du nôtre.
+## Ce que nous ne faisons pas
 
-Les campagnes sont signées et horodatées (signature OpenPGP, deux autorités RFC 3161,
-OpenTimestamps). Les fichiers `.asc`, `.tsr` et `.ots` de `measurements/` sont ces
-preuves. **Une campagne scellée ne se retouche jamais.** Une correction part dans la
-campagne suivante, en disant ce qui a changé.
+**Nous ne recommandons aucun serveur.** Nous mesurons, vérifions et instrumentons, pour
+cartographier le paysage NTP et NTS. Nos CSV et JSON publiés portent tout ce qu'il faut
+pour filtrer — politique d'accès, familles, stratum, état NTS et sa preuve — et le choix
+appartient au lecteur.
 
-## Rapport avec jauderho/nts-servers
+Nous ne publions pas non plus un stratum que vous déclareriez : un stratum est une
+mesure, il change à la seconde où une source amont est perdue, et un fichier dans un
+dépôt git ne suivra pas.
 
-[jauderho/nts-servers](https://github.com/jauderho/nts-servers) et son compagnon
-[public-ntp-servers](https://github.com/jauderho/public-ntp-servers) sont de la
-**documentation** : des listes curatées qu'on recopie dans un `chrony.conf` ou un
-`ntp.toml` pour configurer un client. Ils font référence pour cet usage, et une partie
-de ce registre en a été amorcée.
+## Résultats
 
-Ce dépôt-ci a un autre usage : le **monitoring**. Ses entrées existent pour être
-sondées, mois après mois, depuis six points d'observation, et produire un relevé daté
-de ce que chaque serveur a réellement servi. Une liste faite pour être collée dans un
-fichier de configuration et une liste faite pour être mesurée dans la durée ne sont pas
-le même objet — d'où deux dépôts plutôt qu'une pull request chez eux.
+Campagnes mesurées, méthode, limites et désaccords entre points d'observation :
+<https://ntp.rdem-systems.com/> — CSV et JSON sous CC BY 4.0, campagnes signées et
+horodatées cryptographiquement.
 
-À terme, ce registre a vocation à se reposer sur un ensemble de sources plus large
-plutôt que de rester curaté à la main.
+## Fichiers
 
-## Contribuer
-
-Votre fichier vous appartient. Voir [CONTRIBUTING.md](CONTRIBUTING.md) et
-[SCHEMA.md](SCHEMA.md).
-
-Les fichiers d'`operators/` portant la ligne `# généré depuis les mesures RDEM Systems`
-ont été pré-remplis depuis nos mesures publiques pour amorcer la liste — ils n'ont
-**aucune valeur d'attestation**. Supprimez cette ligne dans votre pull request et le
-fichier ne sera plus jamais régénéré automatiquement.
-
-Nous ne remplissons pas les adresses de contact, et nous n'ajouterons pas à votre
-fichier un serveur que vous n'avez pas publié.
-
-## Périmètre
-
-Europe et zone de service RIPE, étendu au monde à mesure des campagnes. L'Europe
-centrale et orientale n'est aujourd'hui échantillonnée que partiellement : c'est un
-**trou connu, pas un fait mesuré**.
+| | |
+|---|---|
+| [`servers/`](servers/) | un fichier YAML par contributeur — [`EXAMPLE.yml`](servers/EXAMPLE.yml) est le modèle |
+| [`SCHEMA.md`](SCHEMA.md) | tous les champs, et ceux qui n'existent délibérément pas |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | comment soumettre, et comment contester une mesure |
+| [`validate.py`](validate.py) | vérifie votre fichier avant d'ouvrir la pull request |
 
 ## Licence
 
-Données sous [CC BY 4.0](LICENSE). Attribution : RDEM Systems.
-Mesures : <https://ntp.rdem-systems.com/>
+Les déclarations de `servers/` appartiennent à leurs opérateurs. Nos mesures sont
+publiées sous [CC BY 4.0](LICENSE), attribution : RDEM Systems.

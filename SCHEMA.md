@@ -1,50 +1,62 @@
-# Schema — `operators/*.yml`
+# Schema — `servers/*.yml`
 
-One file per operator. Filename is a slug of the operator name; it has no meaning
-beyond being unique. See [`operators/rdem-systems.yml`](operators/rdem-systems.yml) for
-a fully worked example.
+One YAML file per contributor. The filename is yours to choose; it has no meaning
+beyond being unique. See [`servers/EXAMPLE.yml`](servers/EXAMPLE.yml).
+
+**Only `hostname` is required.** Everything else improves the measurement, and an empty
+field is always better than an invented one — we would rather record "unknown" than
+publish a guess about your infrastructure.
 
 ## Top level
 
-| field | required | meaning |
-|---|---|---|
-| `operator` | yes | display name, as you want to be credited |
-| `country` | no | default country for every server in the file |
-| `website` | no | page documenting your time service |
-| `contact` | no | address for us to reach you about a measurement. We never fill this in |
-| `asn` | no | your own AS number, if you have one |
-| `servers` | yes | list, see below |
+| field | meaning |
+|---|---|
+| `operator` | display name, as you want to be credited in our publications |
+| `country` | default country for every server in the file |
+| `website` | page documenting your time service, if you have one |
+| `contact` | address for us to reach you about a measurement. **Never published** |
+| `asn` | your AS number, if you have one |
+| `servers` | list, see below |
 
 ## Per server
 
-| field | required | values |
+| field | values | why we want it |
 |---|---|---|
-| `hostname` | yes | the name a client would configure |
-| `kind` | no | `server`, `academic`, `metrology`, `operator`, `community`, `anycast`, `pool`, `alias` |
-| `country` | no | overrides the file-level `country` — use it when a machine sits elsewhere |
-| `location` | no | free text: city, region, or scope for anycast |
-| `asn` | no | number, or list of numbers when several transits serve the machine |
-| `nts` | yes | `true` / `false` / `null`. **What you announce**, not what we measured. `null` = no claim |
-| `access` | no | `public`, `public-notify`, `on-request`, `restricted`, `closed` |
-| `alias_of` | no | canonical hostname, when this name points at a machine already listed |
+| `hostname` | **required** | the name a client would configure — the name we probe, and the name whose certificate must be valid for NTS |
+| `kind` | `server`, `academic`, `metrology`, `operator`, `community`, `anycast`, `pool`, `alias` | lets the map distinguish an institute from a volunteer |
+| `country` | overrides the file-level value | a machine may sit elsewhere than its operator |
+| `location` | free text: city, region, or scope for an anycast | |
+| `nts` | `true` / `false` / `null` | **what you announce.** `null` means no claim, and that is a fine answer |
+| `ipv4`, `ipv6` | `true` / `false` | which families you intend to serve — we measure them separately and will report a family that is down |
+| `access` | `public`, `public-notify`, `on-request`, `restricted`, `closed` | published as data. It does not gate inclusion: a restricted server belongs on the map as much as an open one |
+| `asn` | a number, or a list | AS diversity is one of the things the map shows |
+| `alias_of` | canonical hostname | prevents one machine being counted several times |
+
+## What ends up in our published data
+
+Your declaration lands in the `nts_documented`, `access`, `operator`, `country`, `type`
+and `alias_of` columns of the published CSV, and in the matching JSON fields — always
+next to what we **measured**, never instead of it. Your file's URL is recorded as
+`access_source`: every figure that involves your server carries the link to the
+declaration that authorised the measurement.
 
 ## Fields that deliberately do not exist
 
 **`stratum`.** A stratum is a measurement, not a property you can announce: it changes
 the moment an upstream source is lost, and a file in a git repository will not follow.
-It belongs in `measurements/`, where it carries a date.
+We measure it and publish it with a date.
 
 **Any status, uptime or accuracy field.** Same reason. This file says what you *offer*;
-the measurements say what a client *got*.
+our campaigns say what a client *got*, from six networks, on a given day.
 
-## Counting rules used against this data
+## Counting rules applied to this data
 
-They matter, because they decide whether your servers are counted once or five times.
+They decide whether your servers are counted once or five times.
 
-1. **Deduplicate by resolved IP, not by hostname.** Several names for one machine is one
-   machine. `alias_of` makes this explicit rather than leaving it to a DNS lookup.
-2. **`kind: pool` entries are not counted as machines.** A round-robin or load-balanced
-   name is an entry point. This is an accounting rule, not a judgement: a pool with a
-   central NTS-KE works, and we have measured one.
-3. **A transient DNS failure never promotes an alias into a server** — a name that stops
-   resolving keeps the flag it had, so totals cannot inflate on their own.
+1. **Deduplication is by resolved IP, not by hostname.** Several names for one machine
+   is one machine. `alias_of` makes it explicit rather than leaving it to a DNS lookup.
+2. **A round-robin name is not counted; its members are.** If `ntp.example.org` answers
+   with two distinct machines, we count `ntp1` and `ntp2` and list the round-robin as
+   what it is. Same for `kind: pool`.
+3. **A transient DNS failure never promotes an alias into a server** — a name that
+   stops resolving keeps the flag it had, so totals cannot inflate on their own.

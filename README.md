@@ -1,86 +1,78 @@
-# ntp-registry — declared NTP/NTS servers, and what we measured
+# ntp-nts-exploration
+
+**Add your NTP or NTS server here, and it will be measured in our next campaign.**
 
 *[Version française](README.fr.md)*
 
-Two kinds of statements about a time server are routinely confused:
+We measure public NTP and NTS servers across Europe and, increasingly, worldwide —
+from six independent vantage points in six different autonomous systems — and publish
+the results as open data. This repository is how you get your servers into that
+measurement.
 
-- **what the operator says it serves** — a declaration;
-- **what a client actually gets from it** — a measurement.
+One file per contributor, under [`servers/`](servers/). Copy
+[`servers/EXAMPLE.yml`](servers/EXAMPLE.yml), fill it in, open a pull request. Your
+file is yours: we do not edit it.
 
-This repository keeps them apart, on purpose, in two directories that never overwrite
-each other.
+## What contributing means
 
-| | `operators/` | `measurements/` |
-|---|---|---|
-| content | one YAML file per operator, listing the servers they publish | dated measurement campaigns, as published |
-| owner | the operator | RDEM Systems |
-| changed by | pull request | never — a campaign is sealed and reissued, not edited |
+Adding a server here is a **public declaration by its operator**. That is exactly what
+we need, and it is the only thing we ask: we do not require you to prove anything, run
+anything, or link back to us. Measuring is our job.
 
-When the two disagree, **the disagreement is the result**. A server announced with NTS
-that serves no authenticated time is a finding, not an error to be smoothed over.
+Concretely, your pull request tells us three things at once:
 
-## What "NTS works" means here
+1. **the server exists** and you want it measured;
+2. **you authorise the measurement** — we record this file as the source of that
+   authorisation, and publish the link alongside every figure that involves your
+   server;
+3. **what you claim to serve** — NTS or not, which IP families, which access policy.
+
+We then measure, and publish what we actually observe. **If our measurement disagrees
+with your declaration, we publish both.** The disagreement is the interesting part, and
+it is often how an operator discovers that their NTS-KE has been down for a month.
+
+## What we measure, and what "NTS works" means here
 
 NTS is not a port, and it is not a certificate. It is: *authenticate, then go to that
 server with this token*. So:
 
 - **NTP works** if and only if we obtain **unauthenticated** time (UDP/123).
 - **NTS works** if and only if we obtain **authenticated** time — the full NTS-KE
-  handshake (TCP/4460, ALPN `ntske/1`, valid certificate **for the queried name**),
+  handshake (TCP/4460, ALPN `ntske/1`, certificate valid **for the queried name**),
   *and then* a valid authenticated NTP response.
 
-The two columns stand on their own. A server can serve NTS without answering plain NTP
-— Netnod does exactly that, by design. A server can have a flawless NTS-KE and serve no
-time at all, because UDP/123 is filtered: the key exchange succeeded, the clock never
-arrived. That one counts as broken.
+Both stand on their own. A server can serve NTS without answering plain NTP — Netnod
+does exactly that, by design. A server can have a flawless NTS-KE and serve no time at
+all because UDP/123 is filtered: the key exchange succeeded, the clock never arrived.
 
-## Measurement method
+We also record the stratum, the IP families, the certificate and its trust anchor, the
+offset seen from each vantage point, and the disagreements between vantage points.
 
-Every server is queried from **six independent vantage points in six different
-autonomous systems**. A single observation point cannot tell an ACL, a rate limit or a
-geographic restriction from a real outage. The published fractions (`4/6`, `0/6`) let
-you recount with a different threshold than ours.
+## What we do not do
 
-Campaigns are cryptographically signed and timestamped (OpenPGP signature, two RFC 3161
-timestamp authorities, OpenTimestamps). Files ending in `.asc`, `.tsr` and `.ots` in
-`measurements/` are those proofs. **A sealed campaign is never edited.** A correction
-goes into the next campaign, with the change stated.
+**We do not recommend servers.** We measure, verify and instrument, to map the NTP and
+NTS landscape. Our published CSV and JSON carry everything needed to filter — access
+policy, families, stratum, NTS state and its evidence — and the choice is the reader's.
 
-## Relation to jauderho/nts-servers
+We also do not publish a stratum you declare: a stratum is a measurement, it changes
+the moment an upstream source is lost, and a file in a git repository will not follow.
 
-[jauderho/nts-servers](https://github.com/jauderho/nts-servers) and its companion
-[public-ntp-servers](https://github.com/jauderho/public-ntp-servers) are **documentation**:
-curated lists you copy into a `chrony.conf` or an `ntp.toml` to configure a client. They
-are the reference for that, and part of this registry was bootstrapped from them.
+## Results
 
-This repository has a different purpose: **monitoring**. Its entries exist to be probed,
-month after month, from six vantage points, and to produce a dated record of what each
-server actually served. A list meant to be pasted into a config file and a list meant to
-be measured over time are not the same object — hence two repositories rather than a
-pull request against theirs.
+Measured campaigns, method, limits and per-vantage disagreements:
+<https://ntp.rdem-systems.com/> — CSV and JSON under CC BY 4.0, campaigns
+cryptographically signed and timestamped.
 
-Over time this registry is intended to fall back on a broader set of sources rather than
-remain hand-curated.
+## Files
 
-## Contributing
-
-Your file is yours. See [CONTRIBUTING.md](CONTRIBUTING.md) and [SCHEMA.md](SCHEMA.md).
-
-Files under `operators/` carrying the line `# généré depuis les mesures RDEM Systems`
-were pre-filled from our public measurements to bootstrap the list — they carry **no
-attestation value whatsoever**. Delete that line in your pull request and the file will
-never be regenerated automatically again.
-
-We do not fill in contact addresses, and we will not add a server to your file that you
-have not published.
-
-## Scope
-
-Europe and the RIPE service region, extended worldwide as measurements allow. Central
-and Eastern Europe is currently sampled only partially — that is a **known gap, not a
-measured fact**.
+| | |
+|---|---|
+| [`servers/`](servers/) | one YAML file per contributor — [`EXAMPLE.yml`](servers/EXAMPLE.yml) is the template |
+| [`SCHEMA.md`](SCHEMA.md) | every field, and the ones that deliberately do not exist |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | how to submit, and how to contest a measurement |
+| [`validate.py`](validate.py) | checks your file before you open the pull request |
 
 ## License
 
-Data under [CC BY 4.0](LICENSE). Attribution: RDEM Systems.
-Measurements: <https://ntp.rdem-systems.com/>
+Declarations in `servers/` are contributed by their operators. Our measurements are
+published under [CC BY 4.0](LICENSE), attribution: RDEM Systems.

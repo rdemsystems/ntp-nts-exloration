@@ -1,0 +1,126 @@
+# RDEM Systems — nous exploitons aussi des serveurs, et nous sommes ici un
+# contributeur comme un autre. Rien dans ce dépôt n'exige la présence de ce fichier,
+# et aucun contributeur n'a à déclarer quoi que ce soit nous concernant.
+
+operator: "RDEM Systems"
+country: "France"
+website: "https://ntp.rdem-systems.com/"
+contact: "noc@rdem-systems.com"
+asn: 206014
+
+servers:
+  - hostname: ntp-1.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 1299]
+  - hostname: ntp-2.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 1299, 199275]
+  - hostname: ntp-3.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 29075]
+  - hostname: ntp-4.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 174, 29075]
+  - hostname: ntp-5.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 29075]
+  - hostname: ntp-6.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014, 29075]
+  - hostname: ntp-7.rdem-systems.com
+    kind: server
+    country: "Germany"        # remplace le pays du fichier : cette machine est à Francfort
+    location: "Frankfurt"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [16276]
+  - hostname: ntp-8.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [206014]
+  - hostname: ntp-9.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [1299]
+  - hostname: ntp-10.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [29075]
+  - hostname: ntp-11.rdem-systems.com
+    kind: server
+    location: "Paris region"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [199275]
+  - hostname: ntp-12.rdem-systems.com
+    kind: server
+    location: "France"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [51167]
+
+  # Déclaré `nts: false` volontairement : une déclaration honnête vaut mieux qu'un
+  # `true` que la mesure ira contredire. C'est ce genre d'écart que ce dépôt sert à
+  # rendre visible.
+  - hostname: ntp-0-hq.rdem-systems.com
+    kind: server
+    location: "Pontoise"
+    nts: false
+    ipv4: true
+    ipv6: false
+    access: public
+    asn: [12322]
+
+  - hostname: ntp-pool.rdem-systems.com
+    kind: pool
+    location: "Paris region"
+    nts: true
+    access: public
