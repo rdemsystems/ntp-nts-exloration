@@ -7,7 +7,7 @@
 
 operator: "Nom de votre organisation"     # affiché tel quel dans nos publications
 country: "France"                          # pays où la machine est exploitée
-contact: "noc@exemple.tld"                 # facultatif, jamais publié
+contact: "ntp@exemple.tld"                 # facultatif, jamais publié
 
 servers:
   - hostname: ntp1.exemple.tld             # SEUL champ obligatoire

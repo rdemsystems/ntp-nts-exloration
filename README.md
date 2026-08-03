@@ -48,6 +48,40 @@ all because UDP/123 is filtered: the key exchange succeeded, the clock never arr
 We also record the stratum, the IP families, the certificate and its trust anchor, the
 offset seen from each vantage point, and the disagreements between vantage points.
 
+## How this differs from the existing lists
+
+[jauderho/nts-servers](https://github.com/jauderho/nts-servers) and
+[jauderho/public-ntp-servers](https://github.com/jauderho/public-ntp-servers), the
+[mutin-sa gist](https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453) and
+the [NTP.org public server registry](https://support.ntp.org/Servers/StratumOneTimeServers)
+are **documentation**: curated lists you copy into a `chrony.conf` or an `ntp.toml` to
+configure a client. They are the reference for that, and part of our own inventory was
+bootstrapped from them — we credit them and re-read them at every campaign.
+
+This repository is not that. It exists to **build our monitoring and speed up
+discovery**. Its entries are not there to be copied into a config file; they are there
+to be probed, month after month, from six vantage points, and to become a dated record
+of what each server actually served.
+
+That difference has practical consequences for you:
+
+- **A list wants a server that works. We want a server that exists.** A server that is
+  down, filtered, or that announces NTS without serving it belongs here — that is
+  precisely the finding. It would be removed from a curated list.
+- **We do not deduplicate you into a recommendation.** Declare four names for one
+  machine and we will measure the four, tell you they are one machine, and count it
+  once.
+- **Adding your server here does not put it in a recommendation list.** It puts it in a
+  measurement — and your server then appears in the published registry and on the map,
+  with what we measured, whatever that turns out to be.
+
+Concretely, contributing here saves us the slowest part of the work: finding servers.
+Today we discover them by reading the upstream reference of other servers, by harvesting
+the pool zones, and by reading operators' own pages — indirect routes that take weeks
+and miss whoever never published anything. One pull request replaces all of that for
+your infrastructure, and gets it measured in the next campaign rather than in six
+months.
+
 ## What we do not do
 
 **We do not recommend servers.** We measure, verify and instrument, to map the NTP and

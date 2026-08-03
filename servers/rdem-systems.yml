@@ -5,7 +5,7 @@
 operator: "RDEM Systems"
 country: "France"
 website: "https://ntp.rdem-systems.com/"
-contact: "noc@rdem-systems.com"
+contact: "ntp@rdem-systems.com"
 asn: 206014
 
 servers:

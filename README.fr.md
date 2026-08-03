@@ -51,6 +51,41 @@ n'est jamais arrivée.
 Nous relevons aussi le stratum, les familles IP, le certificat et son ancre de
 confiance, l'offset vu depuis chaque point d'observation, et les désaccords entre eux.
 
+## En quoi c'est différent des listes existantes
+
+[jauderho/nts-servers](https://github.com/jauderho/nts-servers) et
+[jauderho/public-ntp-servers](https://github.com/jauderho/public-ntp-servers), le
+[gist de mutin-sa](https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453)
+et le [registre public NTP.org](https://support.ntp.org/Servers/StratumOneTimeServers)
+sont de la **documentation** : des listes curatées qu'on recopie dans un `chrony.conf`
+ou un `ntp.toml` pour configurer un client. Ils font référence pour cet usage, et une
+partie de notre inventaire en a été amorcée — nous les créditons et nous les relisons à
+chaque campagne.
+
+Ce dépôt n'est pas ça. Il existe pour **construire notre monitoring et accélérer la
+découverte**. Ses entrées ne sont pas là pour être recopiées dans un fichier de
+configuration, elles sont là pour être sondées, mois après mois, depuis six points
+d'observation, et devenir un relevé daté de ce que chaque serveur a réellement servi.
+
+Cette différence a des conséquences concrètes pour vous :
+
+- **Une liste veut un serveur qui marche. Nous voulons un serveur qui existe.** Un
+  serveur en panne, filtré, ou qui annonce du NTS sans en servir a toute sa place ici —
+  c'est précisément le constat. Une liste curatée l'en retirerait.
+- **Nous ne vous dédoublonnons pas en recommandation.** Déclarez quatre noms pour une
+  machine : nous mesurerons les quatre, nous dirons que c'est une seule machine, et
+  nous la compterons une fois.
+- **Ajouter votre serveur ici ne le met dans aucune liste de recommandation.** Ça le met
+  dans une mesure — et votre serveur figure alors dans le registre publié et sur la
+  carte, avec ce que nous avons mesuré, quel que soit le résultat.
+
+Concrètement, contribuer ici nous épargne la partie la plus lente du travail : trouver
+les serveurs. Aujourd'hui nous les découvrons en lisant la source amont d'autres
+serveurs, en moissonnant les zones du pool et en lisant les pages des opérateurs — des
+chemins indirects qui prennent des semaines et qui ratent ceux qui n'ont jamais rien
+publié. Une pull request remplace tout ça pour votre infrastructure, et la fait mesurer
+à la prochaine campagne plutôt que dans six mois.
+
 ## Ce que nous ne faisons pas
 
 **Nous ne recommandons aucun serveur.** Nous mesurons, vérifions et instrumentons, pour
