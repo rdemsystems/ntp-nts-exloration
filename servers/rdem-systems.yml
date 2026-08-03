@@ -119,8 +119,13 @@ servers:
     access: public
     asn: [12322]
 
+  # Portée réelle du tourniquet : il inclut ntp-7 (Francfort) en plus des sites
+  # franciliens. « Paris region » aurait été faux — un alias de pool porte la portée
+  # de ses membres, pas celle du site le plus fourni.
   - hostname: ntp-pool.rdem-systems.com
     kind: pool
-    location: "Paris region"
+    location: "EU - Mainly Paris Region"
     nts: true
+    ipv4: true
+    ipv6: true
     access: public
