@@ -94,8 +94,12 @@ the moment an upstream source is lost, and a file in a git repository will not f
 ## Results
 
 Measured campaigns, method, limits and per-vantage disagreements:
-<https://ntp.rdem-systems.com/> — CSV and JSON under CC BY 4.0, campaigns
-cryptographically signed and timestamped.
+
+- **Europe** — [Time servers in Europe: who actually serves NTS?](https://ntp.rdem-systems.com/en/time-server-europe.php)
+- **France** — [NTP servers in France](https://ntp.rdem-systems.com/en/ntp-server-france.php)
+- **NTS explained** — [Securing NTP with TLS](https://ntp.rdem-systems.com/en/nts.php)
+
+CSV and JSON under CC BY 4.0, campaigns cryptographically signed and timestamped.
 
 ## Files
 

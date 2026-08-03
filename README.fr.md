@@ -100,8 +100,12 @@ dépôt git ne suivra pas.
 ## Résultats
 
 Campagnes mesurées, méthode, limites et désaccords entre points d'observation :
-<https://ntp.rdem-systems.com/> — CSV et JSON sous CC BY 4.0, campagnes signées et
-horodatées cryptographiquement.
+
+- **Europe** — [Serveurs de temps en Europe : qui fait vraiment du NTS ?](https://ntp.rdem-systems.com/serveur-temps-europe.php)
+- **France** — [Serveurs NTP en France](https://ntp.rdem-systems.com/serveur-ntp-france.php)
+- **Le NTS expliqué** — [Sécuriser NTP avec TLS](https://ntp.rdem-systems.com/nts.php)
+
+CSV et JSON sous CC BY 4.0, campagnes signées et horodatées cryptographiquement.
 
 ## Fichiers
 
