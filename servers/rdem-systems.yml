@@ -106,6 +106,15 @@ servers:
     ipv6: true
     access: public
     asn: [51167]
+  - hostname: ntp-13.rdem-systems.com
+    kind: server
+    country: "Germany"        # remplace le pays du fichier : cette machine est à Francfort
+    location: "Frankfurt"
+    nts: true
+    ipv4: true
+    ipv6: true
+    access: public
+    asn: [16276]
 
   # Déclaré `nts: false` volontairement : une déclaration honnête vaut mieux qu'un
   # `true` que la mesure ira contredire. C'est ce genre d'écart que ce dépôt sert à
@@ -119,9 +128,9 @@ servers:
     access: public
     asn: [12322]
 
-  # Portée réelle du tourniquet : il inclut ntp-7 (Francfort) en plus des sites
-  # franciliens. « Paris region » aurait été faux — un alias de pool porte la portée
-  # de ses membres, pas celle du site le plus fourni.
+  # Portée réelle du tourniquet : il inclut ntp-7 et ntp-13 (Francfort) en plus des
+  # sites franciliens. « Paris region » aurait été faux — un alias de pool porte la
+  # portée de ses membres, pas celle du site le plus fourni.
   - hostname: ntp-pool.rdem-systems.com
     kind: pool
     location: "EU - Mainly Paris Region"
